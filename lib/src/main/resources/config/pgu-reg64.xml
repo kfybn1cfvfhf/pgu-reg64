@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-lazy-init="false">
+
+
+    <!-- Enumeration state in ServiceResult -->
+    <bean id="NOT_AVAILABLE" class="java.lang.Integer">
+        <constructor-arg value="-1001"/>
+    </bean>
+    <bean id="INPUT_ERROR" class="java.lang.Integer">
+        <constructor-arg value="-1002"/>
+    </bean>
+    <bean id="REJECT" class="java.lang.Integer">
+        <constructor-arg value="-1003"/>
+    </bean>
+    <bean id="RESULT" class="java.lang.Integer">
+        <constructor-arg value="-1004"/>
+    </bean>
+    <bean id="ACCEPTED_WITHOUT_RESULT" class="java.lang.Integer">
+        <constructor-arg value="-1005"/>
+    </bean>
+    <bean id="ACCEPTED_WITH_RESULT" class="java.lang.Integer">
+        <constructor-arg value="-1006"/>
+    </bean>
+    <bean id="WITH_STATUS" class="java.lang.Integer">
+        <constructor-arg value="-1007"/>
+    </bean>
+    <bean id="INTERMEDIATE_RESULT_FROM_DEPARTMENT" class="java.lang.Integer">
+        <constructor-arg value="-1008"/>
+    </bean>
+
+
+
+    <bean id="SoapConfig.startRequest" class="com.nvision.pgu.service.core.model.SoapConfig">
+        <property name="action" value="http://www.gosuslugi.ru/smev/startRequest/start"/>
+        <property name="version" value="SOAP_12"/>
+    </bean>
+
+    <bean id="SoapConfig.startRequestV11" class="com.nvision.pgu.service.core.model.SoapConfig">
+        <property name="action" value="http://www.gosuslugi.ru/smev/startRequest/start"/>
+        <property name="version" value="SOAP_11"/>
+    </bean>
+
+    <bean id="Service.Sir" class="com.nvision.pgu.service.core.model.ServiceImpl" abstract="true">
+        <property name="callWrapper">
+            <bean class="com.nvision.pgu.service.core.impl.callwrappers.PguFormatCallWrapper" />
+        </property>
+        <property name="serviceCallSoapConfig">
+            <bean class="com.nvision.pgu.service.core.model.SoapConfig">
+                <property name="action" value="http://www.gosuslugi.ru/smev/startRequest/start"/>
+                <property name="version" value="SOAP_11"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="Service.Nakdka" class="com.nvision.pgu.service.core.model.ServiceImpl" abstract="true">
+        <property name="callWrapper">
+            <bean class="com.nvision.pgu.service.temp.impl.callwrappers.nahodka.NakdkaCallWrapper"/>
+        </property>
+        <property name="cancelRequestWrapper">
+            <bean class="com.nvision.pgu.service.temp.impl.cancelrequestwrappers.ServiceCancelRequestWrapperNakhodka"/>
+        </property>
+    </bean>
+	<bean id="Service.NakhodkaTwoRequests" class="com.nvision.pgu.service.core.model.ServiceImpl" abstract="true">
+        <property name="callWrapper">
+            <bean class="com.nvision.pgu.service.temp.impl.callwrappers.nahodka.NachodkaTwoRequestsCallWrapper"/>
+        </property>
+        <property name="cancelRequestWrapper">
+            <bean class="com.nvision.pgu.service.temp.impl.cancelrequestwrappers.ServiceCancelRequestWrapperNakhodka"/>
+        </property>
+    </bean>
+
+
+    <bean id="Service.AisEcu" class="com.nvision.pgu.service.core.model.ServiceImpl" abstract="true">
+            <property name="callWrapper">
+                <bean class="com.nvision.pgu.service.temp.impl.callwrappers.AisEcu64CallWrapper">
+                    <property name="templatePath" value="templates/mr243_AISMFC.ftl"/>
+                    <property name="configService" ref="configService"/>
+                    <property name="dataService" ref="dataService"/>
+                    <property name="orderService" ref="orderService"/>
+                </bean>
+            </property>
+            <property name="serviceCallSoapConfig">
+                <bean class="com.nvision.pgu.service.core.model.SoapConfig">
+                    <property name="action" value="CreateOrderOU"/>
+                </bean>
+            </property>
+        </bean>
+
+
+    <bean id="Service.Variant" class="com.nvision.pgu.service.core.model.ServiceImpl" abstract="true">
+        <property name="callWrapper">
+            <bean class="com.nvision.pgu.service.temp.impl.callwrappers.Variant64CallWrapper">
+                <property name="templatePath" value="templates/mr243_VARIANT.ftl"/>
+                <property name="configService" ref="configService"/>
+                <property name="dataService" ref="dataService"/>
+                <property name="orderService" ref="orderService"/>
+            </bean>
+        </property>
+        <property name="serviceCallSoapConfig">
+            <bean class="com.nvision.pgu.service.core.model.SoapConfig">
+                <property name="action" value="http://gosuslugi.regiontrud.ru/coordinate/IService/SendServiceRequest"/>
+            </bean>
+        </property>
+    </bean>
+
+
+
+    <bean id="Service.36400008" parent="Service.Sir"/>
+    <bean id="Service.36400010" parent="Service.Sir"/>
+    <bean id="Service.36400015" parent="Service.Sir"/>
+
+
+
+    <bean id="Service.36400025" parent="Service.Sir"/>
+    <bean id="Service.36400026" parent="Service.Sir"/>
+    <bean id="Service.36400027" parent="Service.Sir"/>
+    <bean id="Service.36400028" parent="Service.Sir"/>
+    <bean id="Service.36400029" parent="Service.Sir"/>
+
+    <bean id="Service.36400051" parent="Service.Sir"/>
+
+
+
+    <bean id="Service.36400221" parent="Service.NakhodkaTwoRequests"/>
+    <bean id="Service.36400222" parent="Service.NakhodkaTwoRequests"/>
+    <bean id="Service.36400223" parent="Service.NakhodkaTwoRequests"/>
+    <bean id="Service.36400224" parent="Service.NakhodkaTwoRequests"/>
+    <bean id="Service.36400225" parent="Service.NakhodkaTwoRequests"/>
+    <bean id="Service.36400226" parent="Service.NakhodkaTwoRequests"/>
+    <bean id="Service.36400227" parent="Service.NakhodkaTwoRequests"/>
+    <bean id="Service.36400228" parent="Service.NakhodkaTwoRequests"/>
+	<bean id="Service.36400229" parent="Service.NakhodkaTwoRequests"/>
+    <bean id="Service.36400230" parent="Service.NakhodkaTwoRequests"/>
+    <bean id="Service.36400231" parent="Service.NakhodkaTwoRequests"/>
+	<bean id="Service.36400232" parent="Service.NakhodkaTwoRequests"/>
+
+    <bean id="Service.36400001" parent="Service.AisEcu"/>
+    <bean id="Service.36400004" parent="Service.AisEcu"/>
+    <bean id="Service.36400005" parent="Service.AisEcu"/>
+    <bean id="Service.36400012" parent="Service.AisEcu"/>
+    <bean id="Service.36400002" parent="Service.AisEcu"/>
+    <bean id="Service.36400007" parent="Service.AisEcu"/>
+    <bean id="Service.36400009" parent="Service.AisEcu"/>
+    <bean id="Service.36400014" parent="Service.AisEcu"/>
+    <bean id="Service.36400016" parent="Service.AisEcu"/>
+    <bean id="Service.36400017" parent="Service.AisEcu"/>
+	<bean id="Service.36400021" parent="Service.AisEcu"/>
+    <bean id="Service.36400045" parent="Service.AisEcu"/>
+    <bean id="Service.36400050" parent="Service.AisEcu"/>
+    <bean id="Service.36400052" parent="Service.AisEcu"/>
+    <bean id="Service.36400053" parent="Service.AisEcu"/>
+    <bean id="Service.36400054" parent="Service.AisEcu"/>
+    <bean id="Service.36400065" parent="Service.AisEcu"/>
+    <bean id="Service.36400066" parent="Service.AisEcu"/>
+    <bean id="Service.36400090" parent="Service.AisEcu"/>
+    <bean id="Service.36400101" parent="Service.AisEcu"/>
+    <bean id="Service.36400103" parent="Service.AisEcu"/>
+    <bean id="Service.36400110" parent="Service.AisEcu"/>
+    <bean id="Service.36400114" parent="Service.AisEcu"/>
+    <bean id="Service.36400129" parent="Service.AisEcu"/>
+    <bean id="Service.36400208" parent="Service.AisEcu"/>
+    <bean id="Service.36400155" parent="Service.AisEcu"/>
+    <bean id="Service.36400165" parent="Service.AisEcu"/>
+    <bean id="Service.36400168" parent="Service.AisEcu"/>
+    <bean id="Service.36400180" parent="Service.AisEcu"/>
+    <bean id="Service.36400191" parent="Service.AisEcu"/>
+    <bean id="Service.36400201" parent="Service.AisEcu"/>
+    <bean id="Service.36400207" parent="Service.AisEcu"/>
+    <bean id="Service.36400210" parent="Service.AisEcu"/>
+    <bean id="Service.36400213" parent="Service.AisEcu"/>
+    <bean id="Service.36400100" parent="Service.AisEcu"/>
+    <bean id="Service.36400199" parent="Service.AisEcu"/>
+    <bean id="Service.36400200" parent="Service.AisEcu"/>
+    <bean id="Service.36400215" parent="Service.AisEcu"/>
+    <bean id="Service.36400152" parent="Service.AisEcu"/>
+    <bean id="Service.36400203" parent="Service.AisEcu"/>
+    <bean id="Service.36400205" parent="Service.AisEcu"/>
+    <bean id="Service.36400209" parent="Service.AisEcu"/>
+    <bean id="Service.36400219" parent="Service.AisEcu"/>
+    <bean id="Service.36400220" parent="Service.AisEcu"/>
+    <bean id="Service.36400233" parent="Service.AisEcu"/>
+    <bean id="Service.36400081" parent="Service.AisEcu"/>
+    <bean id="Service.36400218" parent="Service.AisEcu"/>
+    <bean id="Service.36400096" parent="Service.AisEcu"/>
+    <bean id="Service.36400216" parent="Service.AisEcu"/>
+    <bean id="Service.36400117" parent="Service.AisEcu"/>
+    <bean id="Service.36400211" parent="Service.AisEcu"/>
+    <bean id="Service.36400238" parent="Service.AisEcu"/>
+    <bean id="Service.36400202" parent="Service.AisEcu"/>
+    <bean id="Service.36400171" parent="Service.AisEcu"/>
+
+    <bean id="Service.36400242" parent="Service.Variant"/>
+    <bean id="Service.36400243" parent="Service.Variant"/>
+    <bean id="Service.36400244" parent="Service.Variant"/>
+    <bean id="Service.36400245" parent="Service.Variant"/>
+    <bean id="Service.36400246" parent="Service.Variant"/>
+
+    <bean id="Service.36400206" parent="Service.AisEcu"/>
+    <bean id="Service.36400204" parent="Service.AisEcu"/>
+    <bean id="Service.36400102" parent="Service.AisEcu"/>
+    <bean id="Service.36400170" parent="Service.AisEcu"/>
+    <bean id="Service.36400095" parent="Service.AisEcu"/>
+    <bean id="Service.36400241" parent="Service.AisEcu"/>
+    <bean id="Service.36400198" parent="Service.AisEcu"/>
+    <bean id="Service.36400235" parent="Service.AisEcu"/>
+    <bean id="Service.36400237" parent="Service.AisEcu"/>
+    <bean id="Service.36400212" parent="Service.AisEcu"/>
+    <bean id="Service.36400236" parent="Service.AisEcu"/>
+    <bean id="Service.36400131" parent="Service.AisEcu"/>
+    <bean id="Service.36400158" parent="Service.AisEcu"/>
+    <bean id="Service.36400214" parent="Service.AisEcu"/>
+    <bean id="Service.36400239" parent="Service.AisEcu"/>
+    <bean id="Service.36400234" parent="Service.AisEcu"/>
+    <bean id="Service.36400108" parent="Service.AisEcu"/>
+    <bean id="Service.36400120" parent="Service.AisEcu"/>
+    <bean id="Service.36400187" parent="Service.AisEcu"/>
+    <bean id="Service.36400217" parent="Service.AisEcu"/>
+    <bean id="Service.36400240" parent="Service.AisEcu"/>
+
+</beans>

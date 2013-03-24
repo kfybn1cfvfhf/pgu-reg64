@@ -1,0 +1,359 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-752-. --><xs:schema xmlns:tns="urn://x-artefacts-it-ru/dob/poltava/core/1.3.1" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="1.0" targetNamespace="urn://x-artefacts-it-ru/dob/poltava/core/1.3.1">
+
+<xs:element name="getActiveUIBlocksByChoosenOptions">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="targetProductId" type="xs:long"/>
+<xs:element name="choosenOption" type="tns:choosenProductOptionType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getActiveUIBlocksByChoosenOptionsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="uiBlockLabel" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="errorReport" type="tns:executionResultType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getBranchByProductListRequest">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="scopeID" type="xs:string"/>
+<xs:element name="available" type="xs:short" minOccurs="0"/>
+<xs:element name="productInfo" type="tns:productWithOptionsType"/>
+<xs:element name="regionID" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getBranchByProductListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="branchList" type="tns:branchListType" minOccurs="0"/>
+<xs:element name="executionResult" type="tns:executionResultType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getBranchListRequest">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="scopeID" type="xs:string"/>
+<xs:element name="available" type="xs:short" minOccurs="0"/>
+<xs:element name="branchID" type="xs:long" minOccurs="0"/>
+<xs:element name="branchName" type="xs:string" minOccurs="0"/>
+<xs:element name="branchParentID" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getBranchListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="executionResult" type="tns:executionResultType" minOccurs="0"/>
+<xs:element name="branchList" type="tns:branchListType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getBusinessRefBookContentRequest">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="refBookCode" type="xs:string"/>
+<xs:element name="parentItemId" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getBusinessRefBookContentResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="businessRefBookItemList" type="tns:businessRefBookItemListType" minOccurs="0"/>
+<xs:element name="executionResult" type="tns:executionResultType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getBusinessRefBookItemRequest">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="refBookCode" type="xs:string"/>
+<xs:element name="itemId" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getBusinessRefBookItemResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="businessRefBookItem" type="tns:businessRefBookItemType" minOccurs="0"/>
+<xs:element name="executionResult" type="tns:executionResultType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getBusinessRefBookListRequest">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getBusinessRefBookListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="businessRefBookLabel" type="tns:businessRefBookLabelType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="executionResult" type="tns:executionResultType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getOptionsForWizardStep">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="targetProductId" type="xs:long"/>
+<xs:element name="targetWizardStep" type="xs:integer"/>
+<xs:element name="choosenOption" type="tns:choosenProductOptionType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getOptionsForWizardStepResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:choice minOccurs="0" maxOccurs="unbounded">
+<xs:element name="optionGroup" type="tns:productOptionGroupType"/>
+<xs:element name="option" type="tns:productOptionType"/>
+</xs:choice>
+<xs:element name="lastWizardStep" type="tns:tagType" minOccurs="0"/>
+<xs:element name="beyondWizard" type="xs:anyType" minOccurs="0"/>
+<xs:element name="errorReport" type="tns:executionResultType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getPaymentOrderDetailsRequest">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="productInfo" type="tns:productWithOptionsType"/>
+<xs:element name="deptId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getPaymentOrderDetailsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="paymentOrderDetails" type="tns:paymentOrderDetailsType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="executionResult" type="tns:executionResultType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getPersonRequest">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="scopeID" type="xs:string"/>
+<xs:element name="person" type="tns:personType"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getPersonResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="executionResult" type="tns:executionResultType" minOccurs="0"/>
+<xs:element name="personList" type="tns:personListType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getProductListRequest">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="scopeID" type="xs:string"/>
+<xs:element name="available" type="xs:short" minOccurs="0"/>
+<xs:element name="branchID" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="getProductListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="executionResult" type="tns:executionResultType" minOccurs="0"/>
+<xs:element name="productList" type="tns:productListType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="setPersonRequest">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="scopeID" type="xs:string"/>
+<xs:element name="person" type="tns:personType"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="setPersonResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="executionResult" type="tns:executionResultType" minOccurs="0"/>
+<xs:element name="person" type="tns:personType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:complexType name="choosenProductOptionType">
+<xs:sequence>
+<xs:element name="optionId" type="xs:long"/>
+<xs:element name="booleanValue" type="xs:boolean" minOccurs="0"/>
+<xs:element name="enumerationValue" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tagType">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="productWithOptionsType">
+<xs:sequence>
+<xs:element name="productID" type="xs:long"/>
+<xs:element name="choosenOption" type="tns:choosenProductOptionType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="executionResultType">
+<xs:all>
+<xs:element name="resultCode" type="xs:int"/>
+<xs:element name="errorMessage" type="xs:string" minOccurs="0"/>
+</xs:all>
+</xs:complexType>
+
+<xs:complexType name="branchListType">
+<xs:sequence>
+<xs:element name="branch" type="tns:branchType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="branchType">
+<xs:all>
+<xs:element name="branchName" type="xs:string"/>
+<xs:element name="branchStatusName" type="xs:string" minOccurs="0"/>
+<xs:element name="branchTypeName" type="xs:string" minOccurs="0"/>
+<xs:element name="addressString" type="xs:string" minOccurs="0"/>
+<xs:element name="description" type="xs:string" minOccurs="0"/>
+<xs:element name="ID" type="xs:long"/>
+<xs:element name="parentID" type="xs:long" minOccurs="0"/>
+</xs:all>
+</xs:complexType>
+
+<xs:complexType name="businessRefBookItemListType">
+<xs:sequence>
+<xs:element name="businessRefBookItem" type="tns:businessRefBookItemType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="businessRefBookItemType">
+<xs:sequence>
+<xs:element name="refBookCodeName" type="xs:string"/>
+<xs:element name="itemId" type="xs:string"/>
+<xs:element name="parentItemId" type="xs:string" minOccurs="0"/>
+<xs:element name="value" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="businessRefBookLabelType">
+<xs:sequence>
+<xs:element name="codeName" type="xs:string"/>
+<xs:element name="humanReadableName" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="productOptionGroupType">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="name" type="xs:string"/>
+<xs:element name="mandatory" type="xs:boolean"/>
+<xs:element name="productOption" type="tns:productOptionType" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="productOptionType">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="name" type="xs:string"/>
+<xs:element name="mandatory" type="xs:boolean"/>
+<xs:element name="booleanOption" type="tns:tagType" minOccurs="0"/>
+<xs:element name="fixedBooleanValue" type="xs:boolean" minOccurs="0"/>
+<xs:element name="optionValue" type="tns:productOptionValueType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="vizardStep" type="xs:integer"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="productOptionValueType">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="name" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="personType">
+<xs:all>
+<xs:element name="docNum" type="xs:string" minOccurs="0"/>
+<xs:element name="docSeria" type="xs:string" minOccurs="0"/>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="fName" type="xs:string" minOccurs="0"/>
+<xs:element name="lName" type="xs:string" minOccurs="0"/>
+<xs:element name="mName" type="xs:string" minOccurs="0"/>
+<xs:element name="birthDate" type="xs:date" minOccurs="0"/>
+<xs:element name="address" type="xs:string" minOccurs="0"/>
+<xs:element name="personID" type="xs:long" minOccurs="0"/>
+<xs:element name="phone" type="xs:string" minOccurs="0"/>
+</xs:all>
+</xs:complexType>
+
+<xs:complexType name="productListType">
+<xs:sequence>
+<xs:element name="product" type="tns:productType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="productType">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="productName" type="xs:string"/>
+<xs:choice minOccurs="0" maxOccurs="unbounded">
+<xs:element name="option" type="tns:productOptionType"/>
+<xs:element name="optionGroup" type="tns:productOptionGroupType"/>
+</xs:choice>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="personListType">
+<xs:sequence>
+<xs:element name="person" type="tns:personType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="paymentOrderDetailsType">
+<xs:sequence>
+<xs:element name="beneficiaryName" type="xs:string"/>
+<xs:element name="inn" type="xs:string"/>
+<xs:element name="kpp" type="xs:string"/>
+<xs:element name="kbk" type="xs:string"/>
+<xs:element name="okato" type="xs:string"/>
+<xs:element name="account" type="xs:string"/>
+<xs:element name="beneficiaryBankName" type="xs:string"/>
+<xs:element name="beneficiaryBankBik" type="xs:string"/>
+<xs:element name="beneficiaryBankCorrespondentAccount" type="xs:string"/>
+<xs:element name="paymentType" type="xs:string"/>
+<xs:element name="amount" type="xs:decimal"/>
+<xs:element name="paymentOrderShortName" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

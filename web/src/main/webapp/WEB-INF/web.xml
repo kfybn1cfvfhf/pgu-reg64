@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<!--encoding filter must be declared first in the chain-->
+  <filter>
+    <filter-name>encoding-filter</filter-name>
+    <filter-class>
+            org.springframework.web.filter.CharacterEncodingFilter
+        </filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encoding-filter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+<!--everything else goes below this line!!!-->
+  <servlet>
+    <servlet-name>htdocs</servlet-name>
+    <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>0</param-value>
+    </init-param>
+    <init-param>
+      <param-name>listings</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>spring</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+<!-- oio sp settings -->
+  <context-param>
+    <param-name>oiosaml-j.home</param-name>
+    <param-value>${oiosaml_home_64}</param-value>
+  </context-param>
+  <listener>
+    <listener-class>dk.itst.oiosaml.sp.service.session.SessionDestroyListener</listener-class>
+  </listener>
+  <servlet>
+    <servlet-name>SAMLDispatcherServlet</servlet-name>
+    <servlet-class>dk.itst.oiosaml.sp.service.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SAMLDispatcherServlet</servlet-name>
+    <url-pattern>/saml/*</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <filter-name>LoginFilter</filter-name>
+<!--<filter-class>com.nvision.pgu.core.mock.SPFilter</filter-class>-->
+<!--<filter-class>dk.itst.oiosaml.sp.service.SPFilter</filter-class>-->
+    <filter-class>${SPFilter.className}</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/personcab/*</url-pattern>
+    <url-pattern>/services/*</url-pattern>
+    <url-pattern>/payment/*</url-pattern>
+    <url-pattern>/samltest/*</url-pattern>
+    <url-pattern>/fupload/*</url-pattern>
+    <url-pattern>/imageEditor/*</url-pattern>
+  </filter-mapping>
+  <servlet-mapping>
+    <servlet-name>htdocs</servlet-name>
+    <url-pattern>/htdocs/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>spring</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>180</session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>/</welcome-file>
+  </welcome-file-list>
+<!--
+    <servlet>
+        <servlet-name>SamlTest</servlet-name>
+        <servlet-class>dk.itst.oiosaml.sp.service.DispatcherServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SamlTest</servlet-name>
+        <url-pattern>/samltest/*</url-pattern>
+    </servlet-mapping>
+    -->
+<!--
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HtmlAdaptor</web-resource-name>
+            <description>
+                hide our service ordering forms :)
+            </description>
+            
+            <url-pattern>/serviceCatalog/*</url-pattern>
+            <url-pattern>/services/*</url-pattern>
+
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>pguRole</role-name>
+        </auth-constraint>
+    </security-constraint>
+-->
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>JBoss embedded Console</realm-name>
+  </login-config>
+  <security-role>
+    <role-name>pguRole</role-name>
+  </security-role>
+  <distributable/>
+</web-app>

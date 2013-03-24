@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-lazy-init="false">
+
+    <bean id="rawResultExtractor" class="com.nvision.pgu.core.config.result.RawResultExtractor"/>
+
+    <bean id="formattedResultExtractor" class="com.nvision.pgu.core.config.result.FormattedResultExtractor"/>
+
+    <bean id="formattedAndAttachedResultExtractor" class="com.nvision.pgu.core.config.result.FormattedResultExtractor">
+        <property name="attachment" value="true"/>
+    </bean>
+
+    <!--<bean class="com.nvision.pgu.web.services.ResultConfigBeanImpl">-->
+        <!--<property name="settings">-->
+            <!--<map>-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <bean id="serviceRawResultAsWord" class="com.nvision.pgu.core.config.result.ServiceResultAlgorithmImpl">
+        <property name="defaultResultExtractor" ref="rawResultExtractor"/>
+        <property name="defaultMimeType" value="application/msword"/>
+    </bean>
+
+    <bean id="serviceRawResultAsJpeg" parent="serviceRawResultAsWord">
+        <property name="defaultMimeType" value="image/jpeg"/>
+    </bean>
+
+    <bean id="serviceFormattedResultAsExcel" class="com.nvision.pgu.core.config.result.ServiceResultAlgorithmImpl">
+        <property name="defaultResultExtractor" ref="formattedAndAttachedResultExtractor"/>
+        <property name="defaultMimeType" value="application/vnd.ms-excel"/>
+    </bean>
+
+    <bean id="serviceFormattedResultAsJpeg" class="com.nvision.pgu.core.config.result.ServiceResultAlgorithmImpl">
+        <property name="defaultResultExtractor" ref="formattedAndAttachedResultExtractor"/>
+        <property name="defaultMimeType" value="image/jpeg"/>
+    </bean>
+
+    <bean id="serviceRawResultAsPdf" class="com.nvision.pgu.core.config.result.ServiceResultAlgorithmImpl">
+        <property name="defaultResultExtractor" ref="rawResultExtractor"/>
+        <property name="defaultMimeType" value="application/pdf"/>
+    </bean>
+
+    <bean id="serviceFormattedResultForGibdd" class="com.nvision.pgu.core.config.result.ServiceResultAlgorithmImpl">
+        <property name="resultExtractorRules">
+            <map>
+                <entry key="application/pdf" value-ref="formattedAndAttachedResultExtractor"/>
+                <entry key="text/html" value-ref="formattedResultExtractor"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="serviceFormattedResultAsZip" class="com.nvision.pgu.core.config.result.ServiceResultAlgorithmImpl">
+        <property name="defaultResultExtractor" ref="formattedAndAttachedResultExtractor"/>
+        <property name="defaultMimeType" value="application/zip"/>
+    </bean>
+
+    <bean id="serviceRawResultAsZip" class="com.nvision.pgu.core.config.result.ServiceResultAlgorithmImpl">
+        <property name="defaultResultExtractor" ref="rawResultExtractor"/>
+        <property name="defaultMimeType" value="application/zip"/>
+    </bean>
+
+
+</beans>

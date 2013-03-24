@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                http://www.springframework.org/schema/context
+                http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                http://www.springframework.org/schema/jee
+                http://www.springframework.org/schema/jee/spring-jee-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd"
+        >
+   <import resource="classpath:spring/portal.xml"/>
+   <import resource="classpath:config/pgu-reg64-result.xml"/>
+
+    <context:component-scan base-package="ru.lanit.samara.pgu"/>
+
+    <bean id="pguAssertion" class="ru.lanit.samara.pgu.sp.assertion.PguAssertionWrapper" scope="session">
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
+
+    <bean id="privateRoomDataContainer" class="ru.lanit.samara.pgu.core.util.PrivateRoomDataContainer" scope="session" factory-method="createInstance">
+        <constructor-arg name="pguAssertionWrap">
+            <ref local="pguAssertion"/>
+        </constructor-arg>
+        <constructor-arg name="pguAssertion">
+            <ref local="pguAssertion"/>
+        </constructor-arg>
+        <constructor-arg name="ruleRegistry" ref="ruleRegistry"/>
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
+
+    <bean class="ru.lanit.samara.pgu.core.util.version.ServiceVersionBeanPostProcessor" >
+        <property name="controllerPattern" value="service\d{8}Controller" />
+        <property name="serviceCodePattern" value="\d{8}" />
+    </bean>
+
+</beans>

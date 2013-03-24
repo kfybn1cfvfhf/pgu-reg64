@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wsService.zags.com/" xmlns:typ="http://idecs.nvg.ru/privateoffice/ws/types/">
+<soapenv:Header/>
+<soapenv:Body>
+<wss:doCancelService>
+<!--Идентификатор услуги, который возвращают сервисы подачи заявлений (п.3), тег extOrderNumber -->
+<guid>{0}</guid>
+</wss:doCancelService>
+</soapenv:Body>
+</soapenv:Envelope>
